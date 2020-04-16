@@ -1,7 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
   def index
-    articles = Article.all
-    render json: articles
+    render json: ArticleDatatable.new(params)
   end
 end
