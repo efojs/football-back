@@ -1,24 +1,38 @@
-# README
+# Test task
+- Make API with Devise authentication
+- Return articles in JSON format via ajax-datatables-rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Tech stack
+- Ruby 2.5.5
+- Rails 6.0
+- Devise
+- Devise::JWT
+- AjaxDatatablesRails
 
-Things you may want to cover:
+## API endpoints
+- Sign in: `/api/v1/users/sign_in`
+- Get all articles: `/api/v1/articles`
 
-* Ruby version
+## Live demo
+https://efojs-football.herokuapp.com/
 
-* System dependencies
+### Sign in (get token) and request articles (use token)
+```
+const axios = require('axios')
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+axios.post('https://efojs-football.herokuapp.com/api/v1/users/sign_in', {
+  user: {email: "test@example.com", password: "password"},
+  headers: {
+    'Content-Type:': 'application/json',
+  }
+})
+.then((resp) => {
+  axios.get('https://efojs-football.herokuapp.com/api/v1/articles', {
+    headers: {
+      'Authorization': resp.headers.authorization,
+    }
+  })
+  .then(res => console.log(res.data))
+})
+.catch(e => console.error(e))
+```
